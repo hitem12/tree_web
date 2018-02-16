@@ -1,0 +1,75 @@
+<html>
+<head>
+
+{% load static %}
+<link rel = "Stylesheet" type="text/css" href="{% static 'tree_app/style.css' %}" />
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/2.0.1/joint.js"></script>
+	
+</head>
+<body>
+	<div id = "conteiner">
+		<div id = "logo">
+		<img src="{% static "tree_app/images/logo.jpg" %}" alt="Logo"/>
+			
+		</div>
+		
+		<div id = "list">
+		
+		{% for person in persons %}
+			<li> <a href="{% url 'tree' person.id %}">{{ person.names }} {{ person.surname}}</a> </li>
+		{% endfor %}
+		</div>
+		
+		<div id = "person">
+		
+			<div id = "tree">
+			<table id ="table_tree"> 
+				<tr>
+				{% for parent in father %}				
+					<td> <a  href="{% url 'tree' parent.id %}" > {{ parent.names }} {{parent.surname}} </td>
+				{% endfor %}
+				{% for parent in mother %}				
+					<td> <a href="{% url 'tree' parent.id %}">{{ parent.names }} {{parent.surname}} </td>
+				{% endfor %}
+				</tr>
+				<tr>
+				{% for person in this_person %}
+					<td style="color:brown"> {{person.names}} {{person.surname}}</p> </td>
+				{% endfor %}
+				{% for partner in spouse %}				
+					<td> <a href="{% url 'tree' partner.id %}">{{partner.names}} {{partner.surname}} </td>
+				{% endfor %}			
+				</tr>
+				<tr>
+				{% for children in child %}				
+					<td> <a href="{% url 'tree' children.id %}">{{ children.names }} {{children.surname}} </td>
+				{% endfor %}
+				</tr>
+			</table>
+			
+			</div>
+			<div id = "info">
+			3
+			</div>
+	<script type="text/javascript" src='{% static 'tree_app/tree_1.js' %}'></script>
+	
+	<script src=" http://cdn.jsdelivr.net/jquery.cookie/1.4.1/jquery.cookie.min.js "></script>
+	<script type="text/javascript" src='{% static 'tree_app/csrftoken.js' %}'>	</script>
+		</div>	
+		<div id ="clear">
+	</div>	
+		<div id = "stopka">
+		
+		  stopka
+		</div>
+		
+		
+		
+	</div>
+
+</body>
+</html>
