@@ -7,6 +7,8 @@ urlpatterns = [
 	path('', views.IndexView.as_view(), name='index'),
 
 	path('<int:pk>/tree/', views.detail, name='detail'),
+	#path('<int:pk>/bootstrap/', views.detail, name='bootstrap'),
+    path('<int:pk>/bootstrap/', views.bootstrap, name='bootstrap'),
 
     path('<int:pk>/', views.tree, name='tree'),
 

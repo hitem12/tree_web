@@ -56,6 +56,30 @@ def detail(request, pk):
     }
     return render(request,'tree_app/index.html',context)
 
+
+def bootstrap(request, pk):
+    data = Persons.objects.order_by('-surname')
+    this_person = Persons.objects.filter(id = pk)
+    father = Persons.objects.raw('SELECT * FROM persons WHERE id = (SELECT id_father FROM children WHERE id_children = '+str(pk)+')' )
+    mother = Persons.objects.raw('SELECT * FROM persons WHERE id = (SELECT id_mother FROM children WHERE id_children = '+str(pk)+')' )
+    child = Persons.objects.raw('SELECT * FROM persons WHERE id IN( SELECT id_children FROM children WHERE id_father = '+str(pk)+' OR id_mother = '+str(pk)+')')
+    if [q.sex for q in this_person] == [0]:
+        spouse = Persons.objects.raw('SELECT * FROM persons WHERE id IN( SELECT id_husband FROM marriage WHERE id_wife = '+str(pk)+' )')
+    else:
+        spouse = Persons.objects.raw('SELECT * FROM persons WHERE id IN( SELECT id_wife FROM marriage WHERE id_husband = '+str(pk)+' )')
+    context = { 
+    'persons': data,
+    'this_person' : this_person,
+    'mother' : mother,
+	'father' : father,
+    'spouse' : spouse,
+    'child' : child,
+    }
+    return render(request,'tree_app/index_bootstrap.html',context)
+
+
+
+
 def tree_data(request,pk):
    #person = Persons.objects.filter(id = 12)
    print('ajax wola')
