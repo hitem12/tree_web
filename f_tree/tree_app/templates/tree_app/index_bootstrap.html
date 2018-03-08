@@ -1,0 +1,74 @@
+<html>
+<head>
+
+{% load static %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body onload="loaded()">
+	<div id = "conteiner">
+		<div id = "logo">
+		<img src="{% static "tree_app/images/logo.jpg" %}" alt="Logo"/>
+			
+		</div>
+		
+        <div class="col-md-3 col-lg-9">
+					<ul class="inner">
+					{% for person in persons %}
+						<li> 
+							<a href="{% url 'tree' person.id %}">{{ person.names }} {{ person.surname}}</a>
+							
+						</li>
+					{% endfor %}
+			</ul>
+
+		
+
+			<table id ="table_tree"> 
+				<tr>
+				{% for parent in father %}				
+					<td> <a  href="{% url 'tree' parent.id %}" > {{ parent.names }} {{parent.surname}} </td>
+				{% endfor %}
+				{% for parent in mother %}				
+					<td> <a href="{% url 'tree' parent.id %}">{{ parent.names }} {{parent.surname}} </td>
+				{% endfor %}
+				</tr>
+				<tr>
+				{% for person in this_person %}
+					<td style="color:brown"> {{person.names}} {{person.surname}}</p> </td>
+				{% endfor %}
+				{% for partner in spouse %}				
+					<td> <a href="{% url 'tree' partner.id %}">{{partner.names}} {{partner.surname}} </td>
+				{% endfor %}			
+				</tr>
+				<tr>
+				{% for children in child %}				
+					<td> <a href="{% url 'tree' children.id %}">{{ children.names }} {{children.surname}} </td>
+				{% endfor %}
+				</tr>
+			</table>
+			
+			</div>
+
+			<div id = "info">
+			3
+			</div>
+	
+
+
+		</div>	
+
+		<div id = "stopka">
+		
+		  stopka
+		</div>
+		
+		
+		
+	</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
